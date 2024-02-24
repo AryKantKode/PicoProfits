@@ -1,32 +1,42 @@
 from dotenv import load_dotenv
 import os
 import openai
+from openai import OpenAI
 
-# Load environment variables from config.env
+# Load environment variables from the .env file
 load_dotenv('secrets.env')
 
-# Replace "your_api_key_here" with your actual OpenAI API key
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# Function to fetch stock list based on the prompt
+def stock_list(prompt):
+    #Initialize client
+    client = OpenAI()
 
-def get_stock_list(prompt):
-    response = openai.Completion.create(
-        model="text-davinci-004", # You can change this to "gpt-4" when it's officially supported in the API
-        prompt=prompt,
-        temperature=0.7,
-        max_tokens=100,
-        top_p=1.0,
-        frequency_penalty=0.0,
-        presence_penalty=0.0,
-        stop=["\n", "and", ",", ".", ";"]
+    # Ensure the API key is loaded from environment variables
+    openai.api_key = os.getenv('OPENAI_API_KEY')
+    
+    # Create a completion request to GPT-4
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "system",
+                "content": "Generate a space-separated string of at most 10 stock symbols based on the following prompt: " + prompt
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=1,
+        max_tokens=256,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
     )
-    # Assuming the API returns a comma-separated list of stock symbols or names
-    stock_list = response.choices[0].text.strip().split(', ')
-    # Return at most 10 stocks
-    return stock_list[:10]
+    
+    # Return the text of the response
+    return response.choices
 
-# Example prompt
-prompt = "Generate a list of at most 10 promising tech stocks for investment in 2024."
-
-# Get the list of stocks
-stock_list = get_stock_list(prompt)
-print(stock_list)
+# Example usage:
+prompt = "I'm interested in technology and renewable energy sectors."
+print(stock_list(prompt))
