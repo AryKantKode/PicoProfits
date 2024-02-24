@@ -7,13 +7,14 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
+    background-color: #222;
+    color: #ddd;
 }
 
 header {
-    background-color: #333;
+    background-color: #1a1a2e; /* Dark blue */
     color: #fff;
-    padding: 1rem;
+    padding: 1rem 0;
     text-align: center;
 }
 
