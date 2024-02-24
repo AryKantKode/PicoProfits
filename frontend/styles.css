@@ -9,6 +9,9 @@ body {
     line-height: 1.6;
     background-color: #222; /* Darker Background */
     color: #ddd; /* Lighter Text */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Minimum height of the viewport */
 }
 
 header {
@@ -81,4 +84,5 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1rem;
+    margin-top: auto; /* Push footer to the bottom */
 }
