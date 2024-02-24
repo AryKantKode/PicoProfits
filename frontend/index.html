@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PicoProfits - A Stock Optimization Tool</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Optimization</title>
+    <link rel="stylesheet" type = "text/css" href="styles.css">
 </head>
 <body>
-    <h1 style="text-align: center;">PicoProfits</h1>
+    <header>
+        <h1>PicoProfits</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="main-content">
+        <h2>Welcome to PicoProfits!</h2>
+        <p>Enter your stock data below to optimize your portfolio:</p>
+        <form action="#" method="POST">
+            <label for="stock-name">Stock Name:</label>
+            <input type="text" id="stock-name" name="stock-name" required>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" required>
+            <button type="submit">Add Stock</button>
+        </form>
+        <div id="stock-list">
+            <!-- Stock data will be displayed here -->
+        </div>
+        <button id="optimize-btn">Optimize Portfolio</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Stock Optimization Tool. All rights reserved.</p>
+    </footer>
 </body>
 </html>
