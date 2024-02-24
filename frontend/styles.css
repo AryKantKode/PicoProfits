@@ -12,6 +12,11 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Minimum height of the viewport */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+p {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -23,6 +28,11 @@ header {
 
 header h1 {
     margin-bottom: 0.5rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+header h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 nav ul {
@@ -37,6 +47,7 @@ nav ul li {
 nav ul li a {
     color: #fff;
     text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #main-content {
@@ -56,6 +67,7 @@ form input {
     background-color: #333; /* Darker Input Background */
     color: #ddd; /* Lighter Text */
     border: 1px solid #555; /* Darker Border */
+    border-radius: 5px;
 }
 
 form button {
@@ -64,6 +76,7 @@ form button {
     color: #fff;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 #stock-list {
@@ -77,6 +90,7 @@ form button {
     border: none;
     cursor: pointer;
     margin-top: 1rem;
+    border-radius: 5px;
 }
 
 footer {
@@ -84,5 +98,8 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin-top: auto; /* Push footer to the bottom */
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
