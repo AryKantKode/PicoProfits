@@ -40,6 +40,6 @@ def stock_list(prompt):
 def risk_coeff(prompt):
     return prompt
 
-# Example usage:
-prompt = "I'm interested in sports and entertainment."
-print(stock_list(prompt))
+if __name__ == '__main__':
+    prompt = ""
+    print(stock_list(prompt))
