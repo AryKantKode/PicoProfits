@@ -93,6 +93,19 @@ form button {
     border-radius: 5px;
 }
 
+.google-sign-in {
+    background-color: #2aa89e; /* Google Red */
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 4px; /* Rounded corners */
+}
+
+.google-sign-in:hover {
+    background-color: rgb(21, 109, 103); /* Darker shade of Google Red on hover */
+}
+
 footer {
     background-color: #4C92CC;
     color: #fff;
