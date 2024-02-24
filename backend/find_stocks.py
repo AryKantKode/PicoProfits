@@ -35,8 +35,10 @@ def stock_list(prompt):
     )
     
     # Return the text of the response
-    return response.choices
+    return response.choices[0].message.content.split()
+
+
 
 # Example usage:
-prompt = "I'm interested in technology and renewable energy sectors."
+prompt = "I'm interested in sports and entertainment."
 print(stock_list(prompt))
