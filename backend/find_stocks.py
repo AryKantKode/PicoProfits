@@ -37,7 +37,8 @@ def stock_list(prompt):
     # Return the text of the response
     return response.choices[0].message.content.split()
 
-
+def risk_coeff(prompt):
+    return prompt
 
 # Example usage:
 prompt = "I'm interested in sports and entertainment."
