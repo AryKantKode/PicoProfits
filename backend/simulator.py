@@ -54,8 +54,8 @@ def analyze_portfolio(stock_investments, market_index, start_date, end_date):
 if __name__ == '__main__':
     # Example usage
     stocks_and_investments_quantum = {'MSFT': 0.003715812041381836, 'CAT': 0.1423328883307495, 'GILD': 0.3558354091257935, 'ECL': 0.03088454630004883, 'DLR': 0.1147066924232483, 'EFX': 0.011159336663970947, 'TTWO': 0.15399699951934814, 'ARE': 0.014262976822570802, 'DPZ': 0.08786469882238769, 'FFIV': 0.08224065455453491}
-    stocks_and_investments_classical = {'MSFT': 8.656688064372496e-18, 'CAT': 0.0560191710385017, 'GILD': 0.21302909911837561, 'ECL': 2.438766335857655e-16, 'DLR': 0.10472556486169, 'EFX': 0.14965330380005695, 'TTWO': 0.0846819918438431, 'ARE': 0.0, 'DPZ': 0.24894460610121655, 'FFIV': 0.142946263236316}
+    stocks_and_investments_classical = {'MSFT': 0.0, 'CAT': 0.056019351802939106, 'GILD': 0.21302907153275075, 'ECL': 8.452770271197089e-17, 'DLR': 0.10472507700521203, 'EFX': 0.14965344625794894, 'TTWO': 0.08468199574469494, 'ARE': 0.0, 'DPZ': 0.24894483135237788, 'FFIV': 0.1429462263040763}
     market_index = '^GSPC'
     start_date = '2022-01-01'
     end_date = '2022-12-31'
-    analyze_portfolio(stocks_and_investments_quantum, market_index, start_date, end_date)
+    analyze_portfolio(stocks_and_investments_classical, market_index, start_date, end_date)
