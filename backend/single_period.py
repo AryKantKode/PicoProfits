@@ -26,6 +26,17 @@ from dwave.system import LeapHybridDQMSampler, LeapHybridCQMSampler
 
 import yfinance as yf
 
+def get_stock_prices_on_date(stocks, date):
+    stock_prices = {}
+    for stock in stocks:
+        ticker = yf.Ticker(stock)
+        hist = ticker.history(start=date, end=date)
+        if not hist.empty:
+            # Assuming the stock was traded, fetch the 'Close' price
+            stock_prices[stock] = hist.iloc[0]['Close']
+        else:
+            stock_prices[stock] = None  # If no data available for that date
+    return stock_prices
 
 class SinglePeriod: 
     """Define and solve a  single-period portfolio optimization problem.
@@ -312,6 +323,11 @@ class SinglePeriod:
 
             solution['stocks'] = {k:int(best_feasible.sample[k]) for k in self.stocks}
 
+            # Calculate the value of each stock holding
+            solution['stocksratios'] = {}
+            for stock, shares in solution['stocks'].items():
+                solution['stocksratios'][stock] = shares * self.price[stock] / self.budget
+
             solution['return'], solution['risk'] = self.compute_risk_and_returns(solution['stocks'])
 
             spending = sum([self.price[s]*max(0, solution['stocks'][s] - self.init_holdings[s]) for s in self.stocks])
@@ -325,7 +341,7 @@ class SinglePeriod:
                 print(f'Best energy (feasible): {best_feasible.energy: .2f}')  
 
             print(f'\nBest feasible solution:')
-            print(solution)
+            
             print("\n".join("{}\t{:>3}".format(k, v) for k, v in solution['stocks'].items())) 
 
             print(f"\nEstimated Returns: {solution['return']}")
@@ -333,7 +349,7 @@ class SinglePeriod:
             print(f"Sales Revenue: {sales:.2f}")
 
             print(f"Purchase Cost: {spending:.2f}")
-
+            
             print(f"Transaction Cost: {transaction:.2f}")
 
             print(f"Variance: {solution['risk']}\n")
@@ -516,3 +532,5 @@ class SinglePeriod:
 
             self.build_dqm()
             self.solution['DQM'] = self.solve_dqm()
+        
+        return self.solution['CQM']

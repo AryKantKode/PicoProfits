@@ -4,15 +4,15 @@ import openai
 from openai import OpenAI
 
 # Load environment variables from the .env file
-load_dotenv('secrets.env')
+load_dotenv('../secrets.env')
 
 # Function to fetch stock list based on the prompt
 def stock_list(prompt):
-    #Initialize client
-    client = OpenAI()
-
     # Ensure the API key is loaded from environment variables
     openai.api_key = os.getenv('OPENAI_API_KEY')
+
+    #Initialize client
+    client = OpenAI()
     
     # Create a completion request to GPT-4
     response = client.chat.completions.create(
@@ -41,5 +41,5 @@ def risk_coeff(prompt):
     return prompt
 
 if __name__ == '__main__':
-    prompt = ""
+    prompt = "give me the 3 worst stocks on s&p500 in 2020"
     print(stock_list(prompt))
