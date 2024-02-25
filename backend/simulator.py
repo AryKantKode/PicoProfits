@@ -53,7 +53,7 @@ def analyze_portfolio(stock_investments, market_index, start_date, end_date):
 
 # Example usage
 stocks_and_investments_quantum = {'MSFT': 0.23924443681137084, 'CAT': 0.3760605743518982, 'GILD': 0.3387084436331177, 'ECL': 0.0, 'DLR': 0.03604862763783264, 'EFX': 2.866733703613281e-07, 'TTWO': 0.006930490650177002, 'ARE': 4.1439849853515627e-07, 'DPZ': 6.5171044921875e-06, 'FFIV': 2.4539999389648436e-07}
-stocks_and_investments_classical = {'MSFT': 0.2822, 'CAT': 0, 'GILD': 0, 'ECL': 0, 'DLR': 0, 'EFX': 0.3001, 'TTWO': 0, 'ARE': 0, 'DPZ': 0.3287, 'FFIV': 0.0890}
+stocks_and_investments_classical = {'MSFT': 0, 'CAT': 0.0560, 'GILD': 0.2130, 'ECL': 0, 'DLR': 0.1047, 'EFX': 0.1497, 'TTWO': 0.0847, 'ARE': 0, 'DPZ': 0.2049, 'FFIV': 0.1429}
 market_index = '^GSPC'
 start_date = '2022-01-01'
 end_date = '2022-12-31'
