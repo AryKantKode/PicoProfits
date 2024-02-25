@@ -32,7 +32,7 @@ class SinglePeriod:
     """
     def __init__(self, stocks=('AAPL', 'MSFT', 'AAL', 'WMT'), budget=1000, 
                  bin_size=None, gamma=None, file_path='data/basic_data.csv', 
-                 dates=None, model_type='CQM', alpha=0.005, baseline='^GSPC', 
+                 dates=['2020-01-01', '2021-12-31'], model_type='CQM', alpha=0.005, baseline='^GSPC', 
                  sampler_args=None, t_cost=0.01, verbose=True):
         """Class constructor. 
 
@@ -99,14 +99,14 @@ class SinglePeriod:
         else:
             self.sampler_args = {}
 
-        self.sampler = {'CQM': LeapHybridCQMSampler(**self.sampler_args),
-                        'DQM': LeapHybridDQMSampler(**self.sampler_args)}
+        self.sampler = {'CQM': LeapHybridCQMSampler(token='DEV-b80ff71a0ffa044bc0ca11d800f92727a84eaa8a'),
+                        'DQM': LeapHybridDQMSampler(token='DEV-b80ff71a0ffa044bc0ca11d800f92727a84eaa8a')}
 
         self.solution = {}
 
         self.precision = 2
        
-    def load_data(self, file_path='', dates=['2010-01-01', '2023-12-31'], df=None, num=0):
+    def load_data(self, file_path='', dates=['2020-01-01', '2021-12-31'], df=None, num=0):
         """Load the relevant stock data from file, dataframe, or Yahoo!. 
 
         Args:

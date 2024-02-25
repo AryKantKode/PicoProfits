@@ -51,4 +51,4 @@ def optimize_portfolio(stocks=['AAPL', 'MSFT', 'AAL', 'WMT'], budget=1000, bin_s
     my_portfolio.run(min_return=min_return, max_risk=max_risk, num=num)
 
 # Example of calling the function
-# optimize_portfolio()
+optimize_portfolio()
