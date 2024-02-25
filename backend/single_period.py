@@ -26,13 +26,24 @@ from dwave.system import LeapHybridDQMSampler, LeapHybridCQMSampler
 
 import yfinance as yf
 
+def get_stock_prices_on_date(stocks, date):
+    stock_prices = {}
+    for stock in stocks:
+        ticker = yf.Ticker(stock)
+        hist = ticker.history(start=date, end=date)
+        if not hist.empty:
+            # Assuming the stock was traded, fetch the 'Close' price
+            stock_prices[stock] = hist.iloc[0]['Close']
+        else:
+            stock_prices[stock] = None  # If no data available for that date
+    return stock_prices
 
 class SinglePeriod: 
     """Define and solve a  single-period portfolio optimization problem.
     """
     def __init__(self, stocks=('AAPL', 'MSFT', 'AAL', 'WMT'), budget=1000, 
                  bin_size=None, gamma=None, file_path='data/basic_data.csv', 
-                 dates=None, model_type='CQM', alpha=0.005, baseline='^GSPC', 
+                 dates=['2020-01-01', '2021-12-31'], model_type='CQM', alpha=0.005, baseline='^GSPC', 
                  sampler_args=None, t_cost=0.01, verbose=True):
         """Class constructor. 
 
@@ -99,14 +110,14 @@ class SinglePeriod:
         else:
             self.sampler_args = {}
 
-        self.sampler = {'CQM': LeapHybridCQMSampler(**self.sampler_args),
-                        'DQM': LeapHybridDQMSampler(**self.sampler_args)}
+        self.sampler = {'CQM': LeapHybridCQMSampler(token='DEV-b80ff71a0ffa044bc0ca11d800f92727a84eaa8a'),
+                        'DQM': LeapHybridDQMSampler(token='DEV-b80ff71a0ffa044bc0ca11d800f92727a84eaa8a')}
 
         self.solution = {}
 
         self.precision = 2
        
-    def load_data(self, file_path='', dates=['2010-01-01', '2023-12-31'], df=None, num=0):
+    def load_data(self, file_path='', dates=['2020-01-01', '2021-12-31'], df=None, num=0):
         """Load the relevant stock data from file, dataframe, or Yahoo!. 
 
         Args:
@@ -295,7 +306,7 @@ class SinglePeriod:
             solution (dict): This is a dictionary that saves solutions in desired format 
                 e.g., solution = {'stocks': {'IBM': 3, 'WMT': 12}, 'risk': 10, 'return': 20}
         """
-        self.build_cqm(max_risk, min_return, init_holdings)
+        self.build_cqm(None, None, init_holdings)
 
         self.sample_set['CQM'] = self.sampler['CQM'].sample_cqm(self.model['CQM'], 
                                                                 label="Example - Portfolio Optimization")
@@ -312,6 +323,11 @@ class SinglePeriod:
 
             solution['stocks'] = {k:int(best_feasible.sample[k]) for k in self.stocks}
 
+            # Calculate the value of each stock holding
+            solution['stocksratios'] = {}
+            for stock, shares in solution['stocks'].items():
+                solution['stocksratios'][stock] = shares * self.price[stock] / self.budget
+
             solution['return'], solution['risk'] = self.compute_risk_and_returns(solution['stocks'])
 
             spending = sum([self.price[s]*max(0, solution['stocks'][s] - self.init_holdings[s]) for s in self.stocks])
@@ -325,6 +341,7 @@ class SinglePeriod:
                 print(f'Best energy (feasible): {best_feasible.energy: .2f}')  
 
             print(f'\nBest feasible solution:')
+            
             print("\n".join("{}\t{:>3}".format(k, v) for k, v in solution['stocks'].items())) 
 
             print(f"\nEstimated Returns: {solution['return']}")
@@ -332,7 +349,7 @@ class SinglePeriod:
             print(f"Sales Revenue: {sales:.2f}")
 
             print(f"Purchase Cost: {spending:.2f}")
-
+            
             print(f"Transaction Cost: {transaction:.2f}")
 
             print(f"Variance: {solution['risk']}\n")
@@ -492,7 +509,7 @@ class SinglePeriod:
 
         return round(est_return, 2), round(variance, 2)
 
-    def run(self, min_return=0, max_risk=0, num=0, init_holdings=None): 
+    def run(self, min_return=None, max_risk=None, num=0, init_holdings=None): 
         """Execute sequence of load_data --> build_model --> solve.
 
         Args:
@@ -515,3 +532,5 @@ class SinglePeriod:
 
             self.build_dqm()
             self.solution['DQM'] = self.solve_dqm()
+        
+        return self.solution['CQM']

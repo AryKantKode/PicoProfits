@@ -1,6 +1,6 @@
 from single_period import SinglePeriod
 
-def optimize_portfolio(stocks=['AAPL', 'MSFT', 'AAL', 'WMT'], budget=1000, bin_size=None, 
+def optimize_portfolio(stocks=['AAPL', 'MSFT', 'AAL', 'WMT'], budget=1000000000, bin_size=None, 
                        gamma=None, alpha=[0.005], file_path='', 
                        baseline='^GSPC', max_risk=0.0, min_return=0.0, dates=[], 
                        model_type='CQM', rebalance=False, params="{}", verbose=False, 
@@ -48,7 +48,7 @@ def optimize_portfolio(stocks=['AAPL', 'MSFT', 'AAL', 'WMT'], budget=1000, bin_s
                                 verbose=verbose, sampler_args=params,
                                 t_cost=t_cost)
     
-    my_portfolio.run(min_return=min_return, max_risk=max_risk, num=num)
+    return my_portfolio.run(min_return=None, max_risk=None, num=num)['stocksratios']
 
 # Example of calling the function
-# optimize_portfolio()
+print(optimize_portfolio(stocks=['MSFT', 'CAT', 'GILD', 'ECL', 'DLR', 'EFX', 'TTWO', 'ARE', 'DPZ', 'FFIV']))

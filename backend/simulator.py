@@ -3,56 +3,59 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import pandas as pd
 
-# Define the stocks and the initial investment in dollars for each stock
-stocks = ['NOW', 'TSLA', 'ABBV', 'MA', 'OXY']  # Example stocks
-investments = [0.0671,0.5000,0.4329,0,0]  # Corresponding investments in dollars
-market_index = '^GSPC'  # S&P 500 index as the market benchmark
+def analyze_portfolio(stock_investments, market_index, start_date, end_date):
+    # Fetch historical data for stocks and the market index
+    data = {stock: yf.download(stock, start=start_date, end=end_date) for stock in stock_investments.keys()}
+    data[market_index] = yf.download(market_index, start=start_date, end=end_date)
+    
+    # Calculate the number of shares owned for each stock
+    shares_owned = {}
+    total_investment = sum(stock_investments.values())
+    initial_market_price = data[market_index]['Open'].iloc[0]  # Price on the first trading day
+    market_shares_owned = total_investment / initial_market_price
 
-# Fetch historical data for 2023 for both stocks and the market index
-start_date = '2023-01-01'
-end_date = '2023-12-31'
-data = {stock: yf.download(stock, start=start_date, end=end_date) for stock in stocks}
-data[market_index] = yf.download(market_index, start=start_date, end=end_date)
+    for stock, investment in stock_investments.items():
+        initial_price = data[stock]['Open'].iloc[0]  # Price on the first trading day
+        shares_owned[stock] = investment / initial_price
 
-# Calculate the number of shares owned for each stock
-shares_owned = {}
-total_investment = sum(investments)
-initial_market_price = data[market_index]['Open'].iloc[0]  # Price on the first trading day of 2023
-market_shares_owned = total_investment / initial_market_price
+    # Calculate daily portfolio value
+    portfolio_value = pd.DataFrame(index=data[next(iter(stock_investments))].index)
+    portfolio_value['Value'] = 0
+    for stock in stock_investments.keys():
+        portfolio_value['Value'] += data[stock]['Close'] * shares_owned[stock]
 
-for stock, investment in zip(stocks, investments):
-    initial_price = data[stock]['Open'].iloc[0]  # Price on the first trading day of 2023
-    shares_owned[stock] = investment / initial_price
+    # Calculate daily market index value
+    market_value = pd.DataFrame(index=data[market_index].index)
+    market_value['Value'] = data[market_index]['Close'] * market_shares_owned
 
-# Calculate daily portfolio value
-portfolio_value = pd.DataFrame(index=data[stocks[0]].index)
-portfolio_value['Value'] = 0
-for stock in stocks:
-    portfolio_value['Value'] += data[stock]['Close'] * shares_owned[stock]
+    # Plotting
+    plt.figure(figsize=(10, 6))
+    plt.plot(portfolio_value.index, portfolio_value['Value'], label='Portfolio Value')
+    plt.plot(market_value.index, market_value['Value'], label='Market Index Value', linestyle='--')
 
-# Calculate daily market index value
-market_value = pd.DataFrame(index=data[market_index].index)
-market_value['Value'] = data[market_index]['Close'] * market_shares_owned
+    # Formatting the date axis
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b'))  # Month abbreviations
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Ensure each month is marked
+    plt.gcf().autofmt_xdate()  # Auto-format to improve readability
 
-# Plotting
-plt.figure(figsize=(10, 6))
-plt.plot(portfolio_value.index, portfolio_value['Value'], label='Portfolio Value')
-plt.plot(market_value.index, market_value['Value'], label='Market Index Value', linestyle='--')
+    plt.title('Portfolio Value vs. Market Index Over Time')
+    plt.xlabel('Month')
+    plt.ylabel('Total Value in $')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
 
-# Formatting the date axis
-plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b'))  # Month abbreviations
-plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Ensure each month is marked
-plt.gcf().autofmt_xdate()  # Auto-format to improve readability
+    # Print the final values
+    final_portfolio_value = portfolio_value['Value'].iloc[-1]
+    final_market_value = market_value['Value'].iloc[-1]
+    print(f'Final Portfolio Value on {end_date}: ${final_portfolio_value:.2f}')
+    print(f'Final Market Index Value on {end_date}: ${final_market_value:.2f}')
 
-plt.title('Portfolio Value vs. Market Index Over Time (2023)')
-plt.xlabel('Month')
-plt.ylabel('Total Value in $')
-plt.legend()
-plt.grid(True)
-plt.show()
-
-# Print the final values
-final_portfolio_value = portfolio_value['Value'].iloc[-1]
-final_market_value = market_value['Value'].iloc[-1]
-print(f'Final Portfolio Value on Dec 31, 2023: ${final_portfolio_value:.2f}')
-print(f'Final Market Index Value on Dec 31, 2023: ${final_market_value:.2f}')
+# Example usage
+stocks_and_investments_quantum = {'MSFT': 0.23924443681137084, 'CAT': 0.3760605743518982, 'GILD': 0.3387084436331177, 'ECL': 0.0, 'DLR': 0.03604862763783264, 'EFX': 2.866733703613281e-07, 'TTWO': 0.006930490650177002, 'ARE': 4.1439849853515627e-07, 'DPZ': 6.5171044921875e-06, 'FFIV': 2.4539999389648436e-07}
+stocks_and_investments_classical = {'MSFT': 0.2822, 'CAT': 0, 'GILD': 0, 'ECL': 0, 'DLR': 0, 'EFX': 0.3001, 'TTWO': 0, 'ARE': 0, 'DPZ': 0.3287, 'FFIV': 0.0890}
+market_index = '^GSPC'
+start_date = '2022-01-01'
+end_date = '2022-12-31'
+analyze_portfolio(stocks_and_investments_quantum, market_index, start_date, end_date)
+analyze_portfolio(stocks_and_investments_classical, market_index, start_date, end_date)
