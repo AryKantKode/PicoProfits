@@ -1,6 +1,6 @@
 from single_period import SinglePeriod
 
-def optimize_portfolio(stocks=['AAPL', 'MSFT', 'AAL', 'WMT'], budget=10000000000, bin_size=None, 
+def optimize_portfolio(stocks=['AAPL', 'MSFT', 'AAL', 'WMT'], budget=1000000000, bin_size=None, 
                        gamma=None, alpha=[0.005], file_path='', 
                        baseline='^GSPC', max_risk=0.0, min_return=0.0, dates=[], 
                        model_type='CQM', rebalance=False, params="{}", verbose=False, 
