@@ -295,7 +295,7 @@ class SinglePeriod:
             solution (dict): This is a dictionary that saves solutions in desired format 
                 e.g., solution = {'stocks': {'IBM': 3, 'WMT': 12}, 'risk': 10, 'return': 20}
         """
-        self.build_cqm(max_risk, min_return, init_holdings)
+        self.build_cqm(None, None, init_holdings)
 
         self.sample_set['CQM'] = self.sampler['CQM'].sample_cqm(self.model['CQM'], 
                                                                 label="Example - Portfolio Optimization")
@@ -325,6 +325,7 @@ class SinglePeriod:
                 print(f'Best energy (feasible): {best_feasible.energy: .2f}')  
 
             print(f'\nBest feasible solution:')
+            print(solution)
             print("\n".join("{}\t{:>3}".format(k, v) for k, v in solution['stocks'].items())) 
 
             print(f"\nEstimated Returns: {solution['return']}")
@@ -492,7 +493,7 @@ class SinglePeriod:
 
         return round(est_return, 2), round(variance, 2)
 
-    def run(self, min_return=0, max_risk=0, num=0, init_holdings=None): 
+    def run(self, min_return=None, max_risk=None, num=0, init_holdings=None): 
         """Execute sequence of load_data --> build_model --> solve.
 
         Args:
