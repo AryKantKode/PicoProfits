@@ -4,9 +4,9 @@ import matplotlib.dates as mdates
 import pandas as pd
 
 # Define the stocks and the initial investment in dollars for each stock
-stocks = ['LUMN', 'MSFT', 'GOOGL']  # Example stocks
-investments = [1000, 500, 10]  # Corresponding investments in dollars
-market_index = '^GSPC'  # S&P 500 index as the market benchmark
+stocks = ['LUMN', 'BND', 'GOOGL']  # Example stocks
+investments = [0, 500, 0]  # Corresponding investments in dollars
+market_index = 'GLD'  # S&P 500 index as the market benchmark
 
 # Fetch historical data for 2023 for both stocks and the market index
 start_date = '2023-01-01'

@@ -106,7 +106,7 @@ class SinglePeriod:
 
         self.precision = 2
        
-    def load_data(self, file_path='', dates=None, df=None, num=0):
+    def load_data(self, file_path='', dates=['2010-01-01', '2023-12-31'], df=None, num=0):
         """Load the relevant stock data from file, dataframe, or Yahoo!. 
 
         Args:
