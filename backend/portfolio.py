@@ -50,5 +50,6 @@ def optimize_portfolio(stocks=['AAPL', 'MSFT', 'AAL', 'WMT'], budget=1000000000,
     
     return my_portfolio.run(min_return=None, max_risk=None, num=num)['stocksratios']
 
-# Example of calling the function
-print(optimize_portfolio(stocks=['MSFT', 'CAT', 'GILD', 'ECL', 'DLR', 'EFX', 'TTWO', 'ARE', 'DPZ', 'FFIV']))
+if __name__ == '__main__':
+    # Example of calling the function
+    print(optimize_portfolio(stocks=['MSFT', 'CAT', 'GILD', 'ECL', 'DLR', 'EFX', 'TTWO', 'ARE', 'DPZ', 'FFIV'], alpha=0.05))
