@@ -51,11 +51,11 @@ def analyze_portfolio(stock_investments, market_index, start_date, end_date):
     print(f'Final Portfolio Value on {end_date}: ${final_portfolio_value:.2f}')
     print(f'Final Market Index Value on {end_date}: ${final_market_value:.2f}')
 
-# Example usage
-stocks_and_investments_quantum = {'MSFT': 0.23924443681137084, 'CAT': 0.3760605743518982, 'GILD': 0.3387084436331177, 'ECL': 0.0, 'DLR': 0.03604862763783264, 'EFX': 2.866733703613281e-07, 'TTWO': 0.006930490650177002, 'ARE': 4.1439849853515627e-07, 'DPZ': 6.5171044921875e-06, 'FFIV': 2.4539999389648436e-07}
-stocks_and_investments_classical = {'MSFT': 0.2822, 'CAT': 0, 'GILD': 0, 'ECL': 0, 'DLR': 0, 'EFX': 0.3001, 'TTWO': 0, 'ARE': 0, 'DPZ': 0.3287, 'FFIV': 0.0890}
-market_index = '^GSPC'
-start_date = '2022-01-01'
-end_date = '2022-12-31'
-analyze_portfolio(stocks_and_investments_quantum, market_index, start_date, end_date)
-analyze_portfolio(stocks_and_investments_classical, market_index, start_date, end_date)
+if __name__ == '__main__':
+    # Example usage
+    stocks_and_investments_quantum = {'MSFT': 0.018287033670593263, 'CAT': 0.36390626448210145, 'GILD': 0.11135274675357819, 'ECL': 0.007052776643493653, 'DLR': 0.20335556177215577, 'EFX': 0.08153995745925903, 'TTWO': 0.10175629697036744, 'ARE': 0.029057624857177736, 'DPZ': 0.023553904465942382, 'FFIV': 0.05891268573474121}
+    stocks_and_investments_classical = {'MSFT': 8.656688064372496e-18, 'CAT': 0.0560191710385017, 'GILD': 0.21302909911837561, 'ECL': 2.438766335857655e-16, 'DLR': 0.10472556486169, 'EFX': 0.14965330380005695, 'TTWO': 0.0846819918438431, 'ARE': 0.0, 'DPZ': 0.24894460610121655, 'FFIV': 0.142946263236316}
+    market_index = '^GSPC'
+    start_date = '2022-01-01'
+    end_date = '2022-12-31'
+    analyze_portfolio(stocks_and_investments_quantum, market_index, start_date, end_date)
