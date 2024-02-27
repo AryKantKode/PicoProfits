@@ -1,1 +1,1 @@
-# PicoProfits
+# QuarketAnalyst
