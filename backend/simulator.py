@@ -21,8 +21,10 @@ def analyze_portfolio(stock_investments, market_index, start_date, end_date):
     # Calculate daily portfolio value
     portfolio_value = pd.DataFrame(index=data[next(iter(stock_investments))].index)
     portfolio_value['Value'] = 0
+
     for stock in stock_investments.keys():
-        portfolio_value['Value'] += data[stock]['Close'] * shares_owned[stock]
+        stock_close = data[stock]['Close'].reindex(portfolio_value.index).fillna(0)  # Align index and fill missing values
+        portfolio_value['Value'] += stock_close * shares_owned[stock]
 
     # Calculate daily market index value
     market_value = pd.DataFrame(index=data[market_index].index)
@@ -53,8 +55,12 @@ def analyze_portfolio(stock_investments, market_index, start_date, end_date):
 
 if __name__ == '__main__':
     # Example usage
-    stocks_and_investments_quantum = {'MSFT': 0.003715812041381836, 'CAT': 0.1423328883307495, 'GILD': 0.3558354091257935, 'ECL': 0.03088454630004883, 'DLR': 0.1147066924232483, 'EFX': 0.011159336663970947, 'TTWO': 0.15399699951934814, 'ARE': 0.014262976822570802, 'DPZ': 0.08786469882238769, 'FFIV': 0.08224065455453491}
-    stocks_and_investments_classical = {'MSFT': 0.0, 'CAT': 0.056019351802939106, 'GILD': 0.21302907153275075, 'ECL': 8.452770271197089e-17, 'DLR': 0.10472507700521203, 'EFX': 0.14965344625794894, 'TTWO': 0.08468199574469494, 'ARE': 0.0, 'DPZ': 0.24894483135237788, 'FFIV': 0.1429462263040763}
+    stocks_and_investments_classical = {
+        'MSFT': 0.0, 'CAT': 0.056019351802939106, 'GILD': 0.21302907153275075, 
+        'ECL': 8.452770271197089e-17, 'DLR': 0.10472507700521203, 'EFX': 0.14965344625794894, 
+        'TTWO': 0.08468199574469494, 'ARE': 0.0, 'DPZ': 0.24894483135237788, 
+        'FFIV': 0.1429462263040763
+    }
     market_index = '^GSPC'
     start_date = '2022-01-01'
     end_date = '2022-12-31'

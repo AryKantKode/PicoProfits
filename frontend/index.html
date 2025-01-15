@@ -3,39 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quarket Analyst - A Stock Optimization Tool</title>
-    <link rel="stylesheet" type = "text/css" href="styles.css">
+    <title>OptiQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000000, #3b0c59, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            font-family: Phonic, Helvetica, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            font-style: normal;
+        }
+
+        h1 {
+            font-family: Phonic, Helvetica, system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            font-style: normal;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Nunito:wght@400;700&display=swap');
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>Stock Optimization</h1>
-        <nav>
-            <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="index.html">Optimization</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </nav>
-    </header>
+<body class="bg-black text-purple-300">
+    <div class="h-screen flex flex-col justify-center items-center">
+        <h1 class="text-5xl font-extrabold mb-8">OptiQ</h1>
 
-    <section id="main-content">
-        <h2>Quarket Analyst Stock Optimization!</h2>
-        <p>Enter the amount of money you want to invest, and a brief description of your interests to 
-            get a list of stocks to improve your portfolio.</p>
-        <form action="#" method="POST">
-            <label for="stock-name">Amount of Dollars:</label>
-            <input type="number" step = "0.1" id="quantity" name="quantity" required>
-            <label for="quantity">Investment Interests:</label>
-            <input type="text" id="stock-name" name="stock-interests" required>
-            <label for="quantity">Investment Goals (Long/Short term):</label>
-            <input type="text" id="stock-name" name="stock-goals" required>
-            <button id="optimize-btn">Optimize Portfolio</button>
-        </form>
-    </section>
-    
+        <div class="w-2/3">
+            <input type="text" placeholder="Search..." class="w-full p-4 text-lg rounded-md text-black">
+        </div>
+        <div class="w-2/3 mt-4">
+            <a href="stocks.html" class="block w-full text-center px-6 py-4 bg-purple-600 hover:bg-purple-700 text-white text-lg rounded-md">Personalize</a>
+        </div>
+    </div>
 
-    <footer>
-        <p>&copy; 2024 Quarket Analyst. All rights reserved.</p>
-    </footer>
+    <div class="mt-16">
+        <div class="container mx-auto text-center">
+            <h2 class="text-3xl mb-6">Current Stock News</h2>
+            <div class="grid grid-cols-1 gap-8">
+                <div class="bg-purple-900 p-8 rounded-md shadow-lg fade-in" id="news1">
+                    <h3 class="text-2xl font-bold mb-4">Breaking: Tech stocks rally as market optimism grows</h3>
+                    <p>Tech companies are seeing a surge in stock prices as investor confidence rises following positive earnings reports and market indicators.</p>
+                </div>
+                <div class="bg-purple-900 p-8 rounded-md shadow-lg fade-in" id="news2">
+                    <h3 class="text-2xl font-bold mb-4">Financial sector sees a dip amid regulatory concerns</h3>
+                    <p>The financial sector is experiencing a downturn as regulatory challenges loom over the industry, causing uncertainty among investors.</p>
+                </div>
+                <div class="bg-purple-900 p-8 rounded-md shadow-lg fade-in" id="news3">
+                    <h3 class="text-2xl font-bold mb-4">Energy stocks surge after new government policies announced</h3>
+                    <p>Government incentives for renewable energy projects have led to a rally in energy stocks, particularly in the green energy sector.</p>
+                </div>
+                <div class="bg-purple-900 p-8 rounded-md shadow-lg fade-in" id="news4">
+                    <h3 class="text-2xl font-bold mb-4">Healthcare stocks steady as earnings reports meet expectations</h3>
+                    <p>Healthcare companies are maintaining stability in the stock market as earnings reports align with analyst predictions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

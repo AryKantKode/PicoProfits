@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiQ - Stocks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000000, #3b0c59, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 8s ease infinite;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Nunito:wght@400;700&display=swap');
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-black text-purple-300">
+    <div class="container mx-auto py-10 text-center">
+        <h1 class="text-5xl font-extrabold mb-8">OptiQ - Stocks</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Apple (AAPL)</h2>
+                <p>Current Price: $145.67</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Microsoft (MSFT)</h2>
+                <p>Current Price: $310.23</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Tesla (TSLA)</h2>
+                <p>Current Price: $670.50</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Amazon (AMZN)</h2>
+                <p>Current Price: $3,350.25</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Alphabet (GOOGL)</h2>
+                <p>Current Price: $2,800.65</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Meta (META)</h2>
+                <p>Current Price: $350.45</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">NVIDIA (NVDA)</h2>
+                <p>Current Price: $220.75</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Netflix (NFLX)</h2>
+                <p>Current Price: $620.30</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Adobe (ADBE)</h2>
+                <p>Current Price: $680.90</p>
+            </div>
+            <div class="bg-purple-900 p-6 rounded-md shadow-lg">
+                <h2 class="text-xl font-bold">Intel (INTC)</h2>
+                <p>Current Price: $54.85</p>
+            </div>
+        </div>
+
+        <div class="mt-12">
+            <h2 class="text-3xl mb-6">Available Strategies</h2>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="results.html" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-md">Quantum Annealing</a>
+                <a href="results.html" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-md">Discrete Quadratic Modelling</a>
+                <a href="results.html" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-md">Constrained Quadratic Modelling</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
